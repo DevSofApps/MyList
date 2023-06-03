@@ -4,9 +4,9 @@ Visando a facilitação e comodidade na hora de realizar suas compras, o app MyL
 ## Objetivos 📃✅
 - [x] 1. Criação do repositório - 24/02
 - [x] 2. Criação do projeto - 24/02
-- [ ] 3. Criação do modelo de dados ER - 24/03
-- [ ] 4. Criação da aplicação e upload para o repositório - 24/03
-- [ ] 5. Criação das classes, controllers e endpoints - 31/03
-- [ ] 6. Conclusão da API - 05/05
-- [ ] 7. Criação da documentação - 26/05
-- [ ] 8. Entreda da API + APP - 19/06
+- [x] 3. Criação do modelo de dados ER - 24/03
+- [x] 4. Criação da aplicação e upload para o repositório - 24/03
+- [x] 5. Criação das classes, controllers e endpoints - 31/03
+- [x] 6. Conclusão da API - 05/05
+- [x] 7. Criação da documentação - 26/05
+- [x] 8. Entrega da API + APP - 19/06
