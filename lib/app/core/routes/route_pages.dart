@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
+import 'package:my_list/app/bindings/list_binding.dart';
 
+import '../../bindings/item_binding.dart';
+import '../../pages/auth/login/login_page.dart';
+import '../../pages/auth/register/register_page.dart';
 import '../../pages/base_page.dart';
 import '../../pages/home/home_page.dart';
 import '../../pages/splash_page.dart';
@@ -9,10 +13,22 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.base,
       page: () => const BasePage(),
+      bindings: [
+        ListBinding(),
+        ItemBinding(),
+      ],
     ),
     GetPage(
       name: AppRoutes.splash,
       page: () => const SplashPage(),
+    ),
+    GetPage(
+      name: AppRoutes.login,
+      page: () => LoginPage(),
+    ),
+    GetPage(
+      name: AppRoutes.register,
+      page: () => RegisterPage(),
     ),
     GetPage(
       name: AppRoutes.home,

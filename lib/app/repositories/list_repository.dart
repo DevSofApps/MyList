@@ -5,35 +5,48 @@ import 'package:my_list/app/models/lista_model.dart';
 import '../core/services/http_manager.dart';
 import '../core/utils/urls.dart';
 
-class ListaRepository {
+class ListRepository {
   HttpManager httpManager = HttpManager();
 
-  Future<ApiResult<List<ListaModel>>> getAll() async {
+  ListRepository({
+    required this.httpManager,
+  });
+
+  Future<ApiResult<List<ListModel>>> getAll(
+    String token,
+  ) async {
     const String endpoint = "${Url.base}/listas";
     final response = await httpManager.request(
       url: endpoint,
       method: HttpMethods.get,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
     );
 
     if (response['data'] != null) {
       List list = response['data'];
 
-      List<ListaModel> itens = ListaModel.fromList(list);
+      List<ListModel> itens = ListModel.fromList(list);
 
-      return ApiResult<List<ListaModel>>(data: itens);
+      return ApiResult<List<ListModel>>(data: itens);
     } else {
       String message =
           response['error'] ?? "Não foi possível fazer login. Tente novamente!";
-      return ApiResult<List<ListaModel>>(message: message, isError: true);
+      return ApiResult<List<ListModel>>(message: message, isError: true);
     }
   }
 
-  Future<ItemModel> getById(int id) async {
+  Future<ItemModel> getById(String token, int id) async {
     ItemModel model = ItemModel();
+    String endpoint = "${Url.base}/$id";
 
     final response = await httpManager.request(
-      url: "http://192.168.3.18:8000/api/categories/$id",
+      url: endpoint,
       method: HttpMethods.get,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
     );
 
     if (response['data'] != null) {

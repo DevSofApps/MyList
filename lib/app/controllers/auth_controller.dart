@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../core/routes/route_pages.dart';
 import '../core/utils/api_result.dart';
 import '../core/utils/app_utils.dart';
+import '../models/user_model.dart';
+import '../repositories/auth_repository.dart';
 
 class AuthController extends GetxController {
   final AuthRepository repository;

@@ -14,8 +14,15 @@ String? passwordValidator(password) {
   if (password == null || password.isEmpty) {
     return "Digite sua senha!";
   }
-  if (password.length < 6) {
-    return "Sua senha deve ter no mínimo 6 caracteres.";
+  if (password.length < 8) {
+    return "Sua senha deve ter no mínimo 8 caracteres.";
+  }
+  return null;
+}
+
+String? equalPasswordValidator(password, confirmationPassword) {
+  if (password != confirmationPassword) {
+    return "Senhas não conferem!";
   }
   return null;
 }

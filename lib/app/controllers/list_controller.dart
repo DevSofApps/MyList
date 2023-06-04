@@ -1,28 +1,28 @@
 import 'package:get/get.dart';
-import 'package:my_list/app/models/item_model.dart';
+import 'package:my_list/app/models/lista_model.dart';
+import 'package:my_list/app/repositories/list_repository.dart';
 
 import '../core/utils/api_result.dart';
 import '../core/utils/app_utils.dart';
-import '../repositories/item_repository.dart';
 import 'auth_controller.dart';
 
-class ItemController extends GetxController {
+class ListController extends GetxController {
   final AuthController auth;
-  final ItemRepository repository;
+  final ListRepository repository;
   final AppUtils appUtils;
 
-  ItemController({
+  ListController({
     required this.auth,
     required this.repository,
     required this.appUtils,
   });
 
-  RxList<ItemModel> listCategories = RxList<ItemModel>([]);
+  RxList<ListModel> listCategories = RxList<ListModel>([]);
   RxBool isLoading = false.obs;
 
   Future getItens() async {
     isLoading.value = true;
-    ApiResult<List<ItemModel>> result =
+    ApiResult<List<ListModel>> result =
         await repository.getAll(auth.user.token!);
     if (!result.isError) {
       listCategories.assignAll(result.data!);

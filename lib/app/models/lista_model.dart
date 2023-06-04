@@ -1,25 +1,25 @@
 import 'dart:convert';
 
-class ListaModel {
+class ListModel {
   int? id;
   String? name;
   int? userId;
   String? created_at;
 
-  ListaModel({
+  ListModel({
     this.id,
     this.name,
     this.userId,
     this.created_at,
   });
 
-  ListaModel copyWith({
+  ListModel copyWith({
     int? id,
     String? name,
     int? userId,
     String? created_at,
   }) {
-    return ListaModel(
+    return ListModel(
       id: id ?? this.id,
       name: name ?? this.name,
       userId: userId ?? this.userId,
@@ -36,8 +36,8 @@ class ListaModel {
     };
   }
 
-  factory ListaModel.fromMap(Map<String, dynamic> map) {
-    return ListaModel(
+  factory ListModel.fromMap(Map<String, dynamic> map) {
+    return ListModel(
       id: map['id']?.toInt(),
       name: map['name'],
       userId: map['userId']?.toInt(),
@@ -45,14 +45,14 @@ class ListaModel {
     );
   }
 
-  static List<ListaModel> fromList(list) {
-    return List<ListaModel>.from(list.map((x) => ListaModel.fromMap(x)));
+  static List<ListModel> fromList(list) {
+    return List<ListModel>.from(list.map((x) => ListModel.fromMap(x)));
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ListaModel.fromJson(String source) =>
-      ListaModel.fromMap(json.decode(source));
+  factory ListModel.fromJson(String source) =>
+      ListModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -63,7 +63,7 @@ class ListaModel {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is ListaModel &&
+    return other is ListModel &&
         other.id == id &&
         other.name == name &&
         other.userId == userId &&

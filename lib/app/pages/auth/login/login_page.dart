@@ -1,61 +1,168 @@
 import 'package:flutter/material.dart';
-import 'package:my_list/app/core/widgets/textfield_widget.dart';
+import 'package:get/get.dart';
 
+import '../../../controllers/auth_controller.dart';
 import '../../../core/config/app_colors.dart';
+import '../../../core/routes/route_pages.dart';
 import '../../../core/services/validator.dart';
+import '../../../core/widgets/textfield_widget.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatelessWidget {
+  LoginPage({Key? key}) : super(key: key);
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final emailTExtController = TextEditingController();
   final passwordTExtController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TextFieldWidget(
-                    icon: Icons.person,
-                    label: "Email",
-                    controller: emailTExtController,
-                    validator: emailValidator,
+    final size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(color: AppColors.primary),
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: size.height,
+            width: size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Image.asset("assets/images/ilearn-logo-branca.png",
+                      //     scale: 2.5),
+                    ],
                   ),
-                  TextFieldWidget(
-                    icon: Icons.person,
-                    label: "password",
-                    controller: passwordTExtController,
-                    validator: passwordValidator,
+                ),
+
+                // Formulário
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 40,
+                    ),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          // Email
+                          TextFieldWidget(
+                            controller: emailTExtController,
+                            icon: Icons.email,
+                            label: 'Email',
+                            validator: emailValidator,
+                          ),
+
+                          // Senha
+                          TextFieldWidget(
+                            controller: passwordTExtController,
+                            icon: Icons.lock,
+                            label: 'Senha',
+                            isSecret: true,
+                            validator: passwordValidator,
+                          ),
+
+                          // Botão de entrar
+                          SizedBox(
+                            height: 50,
+                            child: GetX<AuthController>(builder: (controller) {
+                              return ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.primary,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                ),
+                                onPressed: controller.isLoading.value == true
+                                    ? null
+                                    : () {
+                                        FocusScope.of(context).unfocus();
+
+                                        if (_formKey.currentState!.validate()) {
+                                          String email =
+                                              emailTExtController.text;
+                                          String password =
+                                              passwordTExtController.text;
+                                          controller.signIn(
+                                              email: email, password: password);
+                                        }
+                                      },
+                                child: controller.isLoading.value == true
+                                    ? const CircularProgressIndicator(
+                                        backgroundColor: Colors.white)
+                                    : const Text(
+                                        'ENTRAR',
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                              );
+                            }),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
+                ),
+
+                // Divisor
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: Colors.grey.withAlpha(90),
+                          thickness: 2,
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child:
+                            Text('Ou', style: TextStyle(color: Colors.white)),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          color: Colors.grey.withAlpha(90),
+                          thickness: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Botão criar conta
+                SizedBox(
+                  height: 50,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),
                       ),
+                      side: const BorderSide(
+                        width: 2,
+                        color: Colors.white,
+                      ),
                     ),
-                    onPressed: () => {},
-                    child: true
-                        ? const CircularProgressIndicator(
-                            backgroundColor: Colors.white)
-                        : const Text(
-                            'ENTRAR',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                  )
-                ],
-              ))
-        ],
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.register);
+                    },
+                    child: const Text('Criar uma conta',
+                        style: TextStyle(fontSize: 18, color: Colors.white)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

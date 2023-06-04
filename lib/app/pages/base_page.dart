@@ -42,10 +42,10 @@ class _BasePageState extends State<BasePage> {
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white.withAlpha(150),
           items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: 'Home',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.home_outlined),
+            //   label: 'Home',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(Icons.comment),
               label: 'Listas',
