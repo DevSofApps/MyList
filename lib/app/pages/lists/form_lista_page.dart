@@ -26,62 +26,68 @@ class _FormListPageState extends State<FormListPage> {
           style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
         ),
       ),
-      body: Center(child: GetX<ListController>(builder: (controller) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: AppColors.primaryLight,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 5,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 64),
-                      child: Form(
-                        key: _formKey,
-                        child: TextFieldWidget(
-                          controller: nameController,
-                          label: 'Nome da lista',
-                        ),
+      body: Center(
+          child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: AppColors.primaryLight,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 5,
+                    offset: Offset(0, 5),
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 64),
+                    child: Form(
+                      key: _formKey,
+                      child: TextFieldWidget(
+                        controller: nameController,
+                        label: 'Nome da lista',
                       ),
                     ),
-                    Padding(
-                        padding: const EdgeInsets.only(bottom: 32),
-                        child: SizedBox(
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(bottom: 32),
+                      child: Obx(() {
+                        return SizedBox(
                           height: 32,
                           width: double.infinity,
                           child: OutlinedButton(
                             style: OutlinedButton.styleFrom(
                               backgroundColor: AppColors.green,
                             ),
-                            onPressed: () {
-                              controller.createList(name: nameController.text);
-                            },
-                            child: const Text('Criar lista',
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.white)),
+                            onPressed: controller.isLoading.value == true
+                                ? null
+                                : () {
+                                    controller.createList(
+                                        name: nameController.text);
+                                  },
+                            child: controller.isLoading.value == true
+                                ? const CircularProgressIndicator()
+                                : const Text('Criar lista',
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.white)),
                           ),
-                        )),
-                  ],
-                ),
+                        );
+                      })),
+                ],
               ),
             ),
           ),
-        );
-      })),
+        ),
+      )),
     );
   }
 }

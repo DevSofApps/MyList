@@ -3,26 +3,26 @@ import 'dart:convert';
 class ListModel {
   int? id;
   String? name;
-  int? userId;
+  int? user_id;
   String? created_at;
 
   ListModel({
     this.id,
     this.name,
-    this.userId,
+    this.user_id,
     this.created_at,
   });
 
   ListModel copyWith({
     int? id,
     String? name,
-    int? userId,
+    int? user_id,
     String? created_at,
   }) {
     return ListModel(
       id: id ?? this.id,
       name: name ?? this.name,
-      userId: userId ?? this.userId,
+      user_id: user_id ?? this.user_id,
       created_at: created_at ?? this.created_at,
     );
   }
@@ -31,16 +31,16 @@ class ListModel {
     return {
       'id': id,
       'name': name,
-      'userId': userId,
+      'user_id': user_id,
       'created_at': created_at,
     };
   }
 
   factory ListModel.fromMap(Map<String, dynamic> map) {
     return ListModel(
-      id: map['id']?.toInt(),
+      id: map['id'],
       name: map['name'],
-      userId: map['userId']?.toInt(),
+      user_id: map['user_id'],
       created_at: map['created_at'],
     );
   }
@@ -56,7 +56,7 @@ class ListModel {
 
   @override
   String toString() {
-    return 'ListaModel(id: $id, name: $name, userId: $userId, created_at: $created_at)';
+    return 'ListaModel(id: $id, name: $name, user_id: $user_id, created_at: $created_at)';
   }
 
   @override
@@ -66,12 +66,12 @@ class ListModel {
     return other is ListModel &&
         other.id == id &&
         other.name == name &&
-        other.userId == userId &&
+        other.user_id == user_id &&
         other.created_at == created_at;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ name.hashCode ^ userId.hashCode ^ created_at.hashCode;
+    return id.hashCode ^ name.hashCode ^ user_id.hashCode ^ created_at.hashCode;
   }
 }

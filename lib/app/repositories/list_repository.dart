@@ -63,7 +63,9 @@ class ListRepository {
     String endpoint = "${Url.base}/lista";
 
     final response = await httpManager
-        .request(url: endpoint, method: HttpMethods.post, body: {
+        .request(url: endpoint, method: HttpMethods.post, headers: {
+      'Authorization': 'Bearer $token',
+    }, body: {
       'name': name,
       'user_id': userId,
     });
@@ -75,8 +77,7 @@ class ListRepository {
 
       return ApiResult<List<ListModel>>(data: itens);
     } else {
-      String message =
-          response['error'] ?? "Não foi possível fazer login. Tente novamente!";
+      String message = response['error'] ?? "Criar lista Tente novamente!";
       return ApiResult<List<ListModel>>(message: message, isError: true);
     }
   }
