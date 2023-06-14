@@ -26,8 +26,9 @@ class AuthRepository {
       },
     );
 
-    if (response['data'] != null) {
-      UserModel user = UserModel.fromMap(response['data']);
+    if (response['user'] != null) {
+      UserModel user = UserModel.fromMap(response['user']);
+      user.token = response['token'];
       appUtils.saveLocalData(key: "user-token", data: user.token!);
 
       return ApiResult<UserModel>(data: user);

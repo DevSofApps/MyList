@@ -11,13 +11,21 @@ class ListController extends GetxController {
   final ListRepository repository;
   final AppUtils appUtils;
 
+  @override
+  void onInit() {
+    super.onInit();
+
+    getItens();
+  }
+
   ListController({
     required this.auth,
     required this.repository,
     required this.appUtils,
   });
 
-  RxList<ListModel> listCategories = RxList<ListModel>([]);
+  final RxString name = RxString('');
+  RxList<ListModel> list = RxList<ListModel>([]);
   RxBool isLoading = false.obs;
 
   Future getItens() async {
@@ -25,11 +33,23 @@ class ListController extends GetxController {
     ApiResult<List<ListModel>> result =
         await repository.getAll(auth.user.token!);
     if (!result.isError) {
-      listCategories.assignAll(result.data!);
+      list.assignAll(result.data!);
     } else {
       appUtils.showToast(message: result.message!, isError: true);
     }
 
+    isLoading.value = false;
+  }
+
+  Future createList({required String name}) async {
+    isLoading.value = true;
+    ApiResult<List<ListModel>> result = await repository.createList(
+        token: auth.user.token!, name: name, userId: auth.user.id!);
+    if (!result.isError) {
+      list.assignAll(result.data!);
+    } else {
+      appUtils.showToast(message: result.message!, isError: true);
+    }
     isLoading.value = false;
   }
 }

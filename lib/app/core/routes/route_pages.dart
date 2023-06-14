@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:my_list/app/bindings/list_binding.dart';
+import 'package:my_list/app/pages/lists/form_lista_page.dart';
 
 import '../../bindings/item_binding.dart';
 import '../../pages/auth/login/login_page.dart';
@@ -34,6 +35,10 @@ abstract class AppPages {
       name: AppRoutes.home,
       page: () => const HomePage(),
     ),
+    GetPage(
+      name: AppRoutes.formList,
+      page: () => FormListPage(),
+    )
   ];
 }
 
@@ -43,4 +48,5 @@ abstract class AppRoutes {
   static const String login = '/login';
   static const String register = '/register';
   static const String home = '/home';
+  static const String formList = '/form-list';
 }

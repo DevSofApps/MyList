@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:my_list/app/core/routes/route_pages.dart';
-import 'package:my_list/app/pages/splash_page.dart';
 
 import 'app/bindings/app_binding.dart';
 import 'app/core/config/app_colors.dart';
-import 'app/pages/base_page.dart';
 
 void main() {
   runApp(const MyApp());

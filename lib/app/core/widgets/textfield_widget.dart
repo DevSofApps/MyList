@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import '../config/app_colors.dart';
 
 class TextFieldWidget extends StatefulWidget {
-  final IconData icon;
+  final IconData? icon;
   final String label;
   final bool isSecret;
   final List<TextInputFormatter>? inputFormatters;
@@ -20,7 +20,7 @@ class TextFieldWidget extends StatefulWidget {
 
   const TextFieldWidget({
     Key? key,
-    required this.icon,
+    this.icon,
     required this.label,
     this.isSecret = false,
     this.inputFormatters,
@@ -66,7 +66,9 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         keyboardType: widget.textInputType,
         maxLines: widget.maxLines,
         decoration: InputDecoration(
-          prefixIcon: Icon(widget.icon, color: AppColors.grey),
+          prefixIcon: widget.icon != null
+              ? Icon(widget.icon, color: AppColors.grey)
+              : null,
           suffixIcon: widget.isSecret
               ? IconButton(
                   onPressed: () {
