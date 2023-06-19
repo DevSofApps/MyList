@@ -4,10 +4,9 @@ import 'package:my_list/app/models/lista_model.dart';
 
 import '../core/services/http_manager.dart';
 import '../core/utils/urls.dart';
-import '../models/user_model.dart';
 
 class ListRepository {
-  HttpManager httpManager = HttpManager();
+  HttpManager httpManager;
 
   ListRepository({
     required this.httpManager,
@@ -57,7 +56,7 @@ class ListRepository {
     return model;
   }
 
-  Future<ApiResult<List<ListModel>>> createList(
+  Future<ApiResult<ListModel>> createList(
       {required String token, required int userId, required name}) async {
     ListModel model = ListModel();
     String endpoint = "${Url.base}/lista";
@@ -71,14 +70,12 @@ class ListRepository {
     });
 
     if (response['data'] != null) {
-      List list = response['data'];
+      ListModel itens = ListModel.fromMap(response['data']);
 
-      List<ListModel> itens = ListModel.fromList(list);
-
-      return ApiResult<List<ListModel>>(data: itens);
+      return ApiResult<ListModel>(data: itens);
     } else {
       String message = response['error'] ?? "Criar lista Tente novamente!";
-      return ApiResult<List<ListModel>>(message: message, isError: true);
+      return ApiResult<ListModel>(message: message, isError: true);
     }
   }
 }

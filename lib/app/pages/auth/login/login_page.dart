@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(color: AppColors.primary),
+        decoration: const BoxDecoration(color: AppColors.white),
         child: SingleChildScrollView(
           child: SizedBox(
             height: size.height,
@@ -32,8 +32,7 @@ class LoginPage extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Image.asset("assets/images/ilearn-logo-branca.png",
-                      //     scale: 2.5),
+                      Image.asset("assets/images/logoapp.png", scale: 2.5),
                     ],
                   ),
                 ),
@@ -62,7 +61,6 @@ class LoginPage extends StatelessWidget {
                             label: 'Email',
                             validator: emailValidator,
                           ),
-
                           // Senha
                           TextFieldWidget(
                             controller: passwordTExtController,
@@ -99,10 +97,12 @@ class LoginPage extends StatelessWidget {
                                       },
                                 child: controller.isLoading.value == true
                                     ? const CircularProgressIndicator(
-                                        backgroundColor: Colors.white)
+                                        backgroundColor: AppColors.primaryText)
                                     : const Text(
                                         'ENTRAR',
-                                        style: TextStyle(fontSize: 18),
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: AppColors.primaryText),
                                       ),
                               );
                             }),
@@ -126,8 +126,8 @@ class LoginPage extends StatelessWidget {
                       ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 15),
-                        child:
-                            Text('Ou', style: TextStyle(color: Colors.white)),
+                        child: Text('Ou',
+                            style: TextStyle(color: AppColors.primaryText)),
                       ),
                       Expanded(
                         child: Divider(
@@ -149,14 +149,15 @@ class LoginPage extends StatelessWidget {
                       ),
                       side: const BorderSide(
                         width: 2,
-                        color: Colors.white,
+                        color: AppColors.primaryText,
                       ),
                     ),
                     onPressed: () {
                       Get.toNamed(AppRoutes.register);
                     },
                     child: const Text('Criar uma conta',
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
+                        style: TextStyle(
+                            fontSize: 18, color: AppColors.primaryText)),
                   ),
                 ),
               ],

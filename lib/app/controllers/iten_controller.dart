@@ -17,19 +17,40 @@ class ItemController extends GetxController {
     required this.appUtils,
   });
 
-  RxList<ItemModel> listCategories = RxList<ItemModel>([]);
+  RxList<ItemModel> listItens = RxList<ItemModel>([]);
   RxBool isLoading = false.obs;
 
-  Future getItens() async {
+  Future getItens(int id) async {
     isLoading.value = true;
     ApiResult<List<ItemModel>> result =
-        await repository.getAll(auth.user.token!);
+        await repository.getAll(auth.user.token!, id);
     if (!result.isError) {
-      listCategories.assignAll(result.data!);
+      listItens.assignAll(result.data!);
     } else {
       appUtils.showToast(message: result.message!, isError: true);
     }
 
+    isLoading.value = false;
+  }
+
+  Future createItem(
+      {required String name,
+      required int lista_id,
+      required int quantidade,
+      required num preco}) async {
+    isLoading.value = true;
+    ApiResult<ItemModel> result = await repository.createItem(
+        token: auth.user.token!,
+        name: name,
+        lista_id: lista_id,
+        quantidade: quantidade,
+        preco: preco);
+    if (!result.isError) {
+      appUtils.showToast(message: 'Item cadastrado com sucesso');
+      Get.back();
+    } else {
+      appUtils.showToast(message: result.message!, isError: true);
+    }
     isLoading.value = false;
   }
 }

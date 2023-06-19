@@ -10,21 +10,14 @@ class SplashPage extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              AppColors.primary,
-              AppColors.primaryDark,
-            ],
-          ),
+          color: AppColors.white,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: const [
-            // Image.asset("", width: 250),
-            SizedBox(height: 10),
-            CircularProgressIndicator(
+          children: [
+            Image.asset("assets/images/logoapp.png", scale: 2.5, width: 250),
+            const SizedBox(height: 10),
+            const CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation(Colors.white),
             )
           ],

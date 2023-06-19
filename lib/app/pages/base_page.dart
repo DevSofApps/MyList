@@ -23,9 +23,8 @@ class _BasePageState extends State<BasePage> {
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: pageController,
-          children: const [
-            HomePage(),
-            ItensPage(),
+          children: [
+            const HomePage(),
             ProfilePage(),
           ],
         ),

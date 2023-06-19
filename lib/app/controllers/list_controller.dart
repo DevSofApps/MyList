@@ -43,10 +43,11 @@ class ListController extends GetxController {
 
   Future createList({required String name}) async {
     isLoading.value = true;
-    ApiResult<List<ListModel>> result = await repository.createList(
+    ApiResult<ListModel> result = await repository.createList(
         token: auth.user.token!, name: name, userId: auth.user.id!);
     if (!result.isError) {
-      list.assignAll(result.data!);
+      appUtils.showToast(message: 'Lista cadastrada com sucesso');
+      Get.back();
     } else {
       appUtils.showToast(message: result.message!, isError: true);
     }

@@ -18,6 +18,18 @@ class MyApp extends StatelessWidget {
       title: 'MyList',
       theme: ThemeData(
         primaryColor: AppColors.primary,
+        colorScheme: const ColorScheme(
+            brightness: Brightness.light,
+            primary: AppColors.primary,
+            onPrimary: AppColors.primary,
+            secondary: AppColors.primaryLight,
+            onSecondary: AppColors.white,
+            error: Colors.red,
+            onError: Colors.red,
+            background: AppColors.background,
+            onBackground: AppColors.background,
+            surface: AppColors.grey,
+            onSurface: AppColors.hoverGray),
         appBarTheme: const AppBarTheme(
           color: AppColors.primary,
           centerTitle: true,

@@ -29,7 +29,7 @@ class RegisterPage extends StatelessWidget {
         elevation: 0,
       ),
       body: Container(
-        decoration: const BoxDecoration(color: AppColors.primary),
+        decoration: const BoxDecoration(color: AppColors.white),
         child: SingleChildScrollView(
           child: SizedBox(
             height: size.height,
@@ -54,6 +54,11 @@ class RegisterPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+                          Image.asset(
+                            "assets/images/logoapp.png",
+                            height: 125,
+                          ),
+                          const SizedBox(height: 20),
                           TextFieldWidget(
                             icon: Icons.person,
                             label: 'Nome',
@@ -112,10 +117,12 @@ class RegisterPage extends StatelessWidget {
                                       },
                                 child: controller.isLoading.value == true
                                     ? const CircularProgressIndicator(
-                                        backgroundColor: Colors.white)
+                                        backgroundColor: AppColors.primaryText)
                                     : const Text(
                                         'Cadastrar',
-                                        style: TextStyle(fontSize: 18),
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: AppColors.primaryText),
                                       ),
                               );
                             }),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_list/app/controllers/list_controller.dart';
-import '../lists/form_lista_page.dart';
+import '../../core/config/app_colors.dart';
+import '../../core/routes/route_pages.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,15 +17,15 @@ class HomePage extends StatelessWidget {
           'Home Page',
           style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Get.to(() => FormListPage());
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
       ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: AppColors.primary,
+          hoverColor: AppColors.primary,
+          onPressed: () async {
+            await Get.toNamed(AppRoutes.formList);
+            controllerState.getItens();
+          },
+          child: const Icon(Icons.add)),
       body: RefreshIndicator(
         onRefresh: () async {
           controllerState.getItens();
@@ -40,10 +41,45 @@ class HomePage extends StatelessWidget {
                 return ListView.builder(
                   itemCount: controllerState.list.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(controllerState.list[index].name ?? ""),
-                      subtitle:
-                          Text(controllerState.list[index].created_at ?? ""),
+                    return Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: InkWell(
+                        onTap: () => {
+                          Get.toNamed(
+                            AppRoutes.listItem,
+                            arguments: {
+                              "listaId": controllerState.list[index].id,
+                              "name": controllerState.list[index].name
+                            },
+                          ),
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: AppColors.primaryLight,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 5,
+                                offset: Offset(0, 5),
+                              ),
+                            ],
+                          ),
+                          child: ListTile(
+                            title: Text(
+                              controllerState.list[index].name ?? "",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primaryText),
+                            ),
+                            subtitle: Text(
+                                controllerState.list[index].created_at ?? ""),
+                            trailing: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.more_vert,
+                                    color: AppColors.primaryText)),
+                          ),
+                        ),
+                      ),
                     );
                   },
                 );
